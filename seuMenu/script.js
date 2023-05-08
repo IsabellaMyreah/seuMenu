@@ -74,7 +74,7 @@ const menu = [
     {
         id: 9,
         title: "Quarantine Buddy",
-        category: "Shake",
+        category: "Shakes",
         price: 16.99,
         image: "./images/item-9.jpeg",
         description: "Skateboard fam synth authentic semiotics. Live-edge lyft af, edison buld yuccie crucifix microdosing",
@@ -88,4 +88,53 @@ const menu = [
         image: "./images/item-10.jpeg",
         description: "Skateboard fam synth authentic semiotics. Live-edge lyft af, edison buld yuccie crucifix microdosing",
     }
-]
+];
+
+const menuItems = document.querySelector('.menu-items');
+const buttonContainer = document.querySelector('.button-container');
+
+window.addEventListener("DOMContentLoaded", () => {
+    displayMenuButtons()
+})
+
+menu.map((item) => {
+    let html = `
+    <div class="content">
+    <div class="item-image">
+        <img src="${item.image}" alt="${item.title}" />
+    </div>
+    <div class="item-info">
+        <div class="item-title">
+        <p>${item.title}</p>
+        <p class="price">${item.price}</p>
+    </div>
+    <div class="item-description">
+        <p>
+         ${item.description}
+        </p>
+    </div>
+    </div>
+    </div>
+    `
+
+    menuItems.innerHTML += html
+    });
+    
+    function displayMenuButtons() {
+        const categories = menu.reduce((value, item) => {
+            if(!value.includes(item.category)){
+                value.push(item.category)
+
+            }
+
+            return value;
+        }, ["all"]);
+
+        const categoryButtons = categories.map((category) =>{
+            return `
+            <button class="filter-button" data-id="${category}">${category}</button>
+            `
+        }).join("");
+
+        buttonContainer.innerHTML += categoryButtons;
+    }
